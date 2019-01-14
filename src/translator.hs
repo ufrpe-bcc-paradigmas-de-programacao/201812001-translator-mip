@@ -2,6 +2,7 @@ import Numeric (showHex, showIntAtBase)
 import Data.Char (intToDigit)
 import Data.List.Split
 import System.IO
+import qualified Data.Text as T
 
 hello = "Hello World!"
 
@@ -15,20 +16,27 @@ verificandoTipo lista
   | head lista=="JMP" = tipoJ lista
 
 tipoR lista
-  | head lista=="NOP"= "Faz nada"
-  | head lista=="ADD"= "0001"-- ++ toInt (head(tail lista)) ++ toInt (head(tail(tail lista)))
-  | head lista=="AND"= "0010" 
-  | head lista=="OR" = "0011"
-  | head lista=="SUB"= "0100" ++ toInt (head(tail lista)) - toInt (head(tail(tail lista)))
-  | head lista=="NEG"= "0101" ++ toInt (head(tail lista))*(-1)
-  | head lista=="NOT"= "" -- ~R1
-  | head lista=="CPY"= "NADA" -- -R1
-  | head lista=="INPUT" = "DO IT"
-  | head lista=="OUTPUT" = "DO IT"
+  | head lista=="NOP"= "0"
+  | head lista=="ADD"= "0001" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="AND"= "0010" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="OR" = "0011" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="SUB"= "0100" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="NEG"= "0101" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="NOT"= "0110" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="CPY"= "0111" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="INPUT" = "1110" 
+  | head lista=="OUTPUT" = "1111"
 
-tipoJ lista = "In progress"  
-
+tipoJ lista = "In progress"
 
 tipoI lista = "In progress" 
 
 toInt txt = read txt :: Int 
+
+-- | @Param maxSize = Receive max size of string
+-- | @Param binary = Receive binary string to be formated
+-- | This function put leading zeros on a String of defined length
+formatBinaryOutput maxSize binary
+  | length binary > maxSize = error "Bit limit exceeded"
+  | length binary == maxSize = binary
+  | length binary < maxSize = formatBinaryOutput maxSize ("0" ++ binary)
