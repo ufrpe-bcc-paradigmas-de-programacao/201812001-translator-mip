@@ -5,5 +5,6 @@ hello = "Hello World!"
 
 handleFile file = readFile file
 
-normalizeStrings text = splitOn "\n" text
-
+normalizeStrings file = do 
+  content <- handleFile file
+  return (splitOn "\n" content)
