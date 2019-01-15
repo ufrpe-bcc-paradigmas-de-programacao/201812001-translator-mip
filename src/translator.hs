@@ -17,13 +17,13 @@ verificandoTipo lista
 
 tipoR lista
   | head lista=="NOP"= "0"
-  | head lista=="ADD"= "0001" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="AND"= "0010" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="OR" = "0011" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="SUB"= "0100" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="NEG"= "0101" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="NOT"= "0110" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
-  | head lista=="CPY"= "0111" ++ showIntAtBase 2 intToDigit (toInt (head(tail lista))) "" ++ showIntAtBase 2 intToDigit (toInt (last lista)) ""
+  | head lista=="ADD"= "0001" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "")
+  | head lista=="AND"= "0010" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "")
+  | head lista=="OR" = "0011" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "")
+  | head lista=="SUB"= "0100" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "")
+  | head lista=="NEG"= "0101" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "") ++ "0000"
+  | head lista=="NOT"= "0110" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "") ++ "0000"
+  | head lista=="CPY"= "0111" ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (last lista)) "") ++ "0000"
   | head lista=="INPUT" = "1110" 
   | head lista=="OUTPUT" = "1111"
 
