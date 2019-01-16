@@ -30,8 +30,17 @@ tipoR lista
 
 tipoJ lista = binToHex (splitOn "" ("11010000" ++ formatBinaryOutput 8 (showIntAtBase 2 intToDigit(toInt (last lista))"") )) 0 0
 
-tipoI lista = "In progress" 
-
+tipoI lista
+  | head lista=="LRG" = transf lista "1000"
+  | head lista=="BLT" = transf lista "1001"
+  | head lista=="BGT" = transf lista "1010"
+  | head lista=="BEQ" = transf lista "1011"
+  | head lista=="BNE" = transf lista "1100"
+  
+transf lista x =
+  (if toInt(head(tail(tail lista))) < 0 
+    then x ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ "0" ++ "1" ++ formatBinaryOutput 8 (showIntAtBase 2 intToDigit (toInt (last (splitOn "-" (last lista)))) "")
+    else x ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ "0" ++ formatBinaryOutput 8 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) ""))
 toInt txt = read txt :: Int 
 
 -- | @Param maxSize = Receive max size of string
