@@ -1,5 +1,6 @@
 import Numeric (showHex, showIntAtBase)
 import Data.Char (intToDigit)
+import Data.Hex
 import Data.List.Split
 import System.IO
 import qualified Data.Text as T
@@ -40,3 +41,12 @@ formatBinaryOutput maxSize binary
   | length binary > maxSize = error "Bit limit exceeded"
   | length binary == maxSize = binary
   | length binary < maxSize = formatBinaryOutput maxSize ("0" ++ binary)
+  
+-- | @Param bin = Receive a list of Binary number, but the list must be separeted, like ["", "1", "0", "1", "1"], use splitOn "" <listToSplit>
+-- | @Param pos = Receive position where the fuction is in the Binary list. Always must be started with 0
+-- | @Param result = Receive the result, this must be started with 0.
+-- | This function transform a String representing Binary into a String representing a Hexadecimal number.
+binToHex bin pos result
+  | last bin == "" = (showHex result "")
+  | last bin == "0" = binToHex (init bin) (pos + 1) result
+  | last bin == "1" = binToHex (init bin) (pos +1) (result + (1*(2^pos)))
