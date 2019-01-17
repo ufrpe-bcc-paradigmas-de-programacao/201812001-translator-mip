@@ -9,7 +9,7 @@ hello = "Hello World!"
 
 normalizeStrings file  = do
   content <- readFile file
-  return (splitOn "\n" content)
+  return (verificandoTipo (splitOn "" (head (splitOn "\n" content))))
   
 verificandoTipo lista
   | head lista=="NOP" || head lista=="ADD" || head lista=="AND" || head lista=="OR" || head lista=="SUB" || head lista =="NEG" || head lista =="CPY" || head lista =="INPUT" || head lista=="OUTPUT"  = tipoR lista
@@ -41,6 +41,7 @@ transf lista x =
   (if toInt(head(tail(tail lista))) < 0 
     then x ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ "0" ++ "1" ++ formatBinaryOutput 8 (showIntAtBase 2 intToDigit (toInt (last (splitOn "-" (last lista)))) "")
     else x ++ formatBinaryOutput 3 (showIntAtBase 2 intToDigit (toInt (head(tail lista))) "") ++ "0" ++ formatBinaryOutput 8 (showIntAtBase 2 intToDigit (toInt (head(tail(tail lista)))) ""))
+
 toInt txt = read txt :: Int 
 
 -- | @Param maxSize = Receive max size of string
@@ -59,3 +60,19 @@ binToHex bin pos result
   | last bin == "" = (showHex result "")
   | last bin == "0" = binToHex (init bin) (pos + 1) result
   | last bin == "1" = binToHex (init bin) (pos +1) (result + (1*(2^pos)))
+
+
+-- TODO
+
+-- printArqFinal list = writeFile "Output.txt" (finalFunc list)
+
+-- finalFunc list = forM_ ("-- Copyright (C) 1991-2013 Altera Corporation\n-- Your use of Altera Corporation's design tools, logic functions\n-- and other software and tools, and its AMPP partner logic\n-- functions, and any output files from any of the foregoing\n
+-- -- (including device programming or simulation files), and any\n-- associated documentation or information are expressly subject\n-- to the terms and conditions of the Altera Program License\n
+-- -- Subscription Agreement, Altera MegaCore Function License\n-- Agreement, or other applicable license agreement, including,\n-- without limitation, that your use is for the sole purpose of\n
+-- -- programming logic devices manufactured by Altera and sold by\n-- Altera or its authorized distributors.  Please refer to the\n
+-- -- applicable agreement for further details.\n\n-- Quartus II generated Memory Initialization File (.mif)\n\nWIDTH=16;\nDEPTH=256;\n
+-- \nADDRESS_RADIX=UNS;\nDATA_RADIX=HEX;\n\nCONTENT BEGIN\n" ++ resultadoFinal list (length list) (" ["++ (show loop) ++"..255]  :   0000;\nEND;") putStrLn
+
+-- resultadoFinal listI loop listF
+--   | loop < 0 = listF
+--   | loop >= 0 = resultadoFinal (init listI) (loop - 1) ("	"++(show loop)++"    :   "++(last listI)++";\n" ++ listF)

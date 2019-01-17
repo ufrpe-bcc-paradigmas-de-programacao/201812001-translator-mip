@@ -5,6 +5,11 @@
 ### Dependencies:
 
 - [Haskell Compiler (GHC)](https://www.haskell.org/downloads)
+- Install [Cabal](https://www.haskell.org/cabal/download.html)
+    - On your terminal write:
+        - `cabal update`
+        - `cabal install hex`
+        - `cabal install text`
 
 ### How to use:
 
