@@ -9,11 +9,11 @@ hello = "Hello World!"
 
 normalizeStrings file  = do
   content <- readFile file
-  return (verificandoTipo (splitOn "" (head (splitOn "\n" content))))
+  return (verificaTipo (splitOn "" (head (splitOn "\n" content))))
   
-start comando = verificandoTipo (splitOn " " comando)
+start comando = verificaTipo (splitOn " " comando)
 
-verificandoTipo lista
+verificaTipo lista
   | head lista=="NOP" || head lista=="ADD" || head lista=="AND" || head lista=="OR" || head lista=="SUB" || head lista =="NEG" || head lista =="CPY" || head lista =="INPUT" || head lista=="OUTPUT"  = tipoR lista
   | head lista=="LRG" || head lista=="BLT" || head lista=="BGT" || head lista=="BEQ" || head lista=="BNE" = tipoI lista
   | head lista=="JMP" = tipoJ lista
