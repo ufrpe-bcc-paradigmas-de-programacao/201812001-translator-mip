@@ -1,0 +1,24 @@
+{
+  "name": "201812001-tradutor-mip",
+  "version": "1.0.0",
+  "description": "tradutor de comandos mip",
+  "main": "src/translator.hs",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "installDeps": "cabal update | cabal install update hex text split",
+    "start": "ghci ./src/translator.hs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ufrpe-bcc-paradigmas-de-programacao/201812001-tradutor-mip.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ufrpe-bcc-paradigmas-de-programacao/201812001-tradutor-mip/issues"
+  },
+  "homepage": "https://github.com/ufrpe-bcc-paradigmas-de-programacao/201812001-tradutor-mip#readme"
+}
