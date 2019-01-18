@@ -1,17 +1,6 @@
-# translator-mip
+# Translator Mip
 
 ## Setup Project
-
-### Dependencies:
-
-- [Haskell Compiler (GHC)](https://www.haskell.org/downloads)
-- Install [Cabal](https://www.haskell.org/cabal/download.html)
-    - On your terminal write:
-        - `cabal update`
-        - `cabal install hex`
-        - `cabal install text`
-
-### How to use:
 
 1. Clone this repository doing:
 
@@ -19,18 +8,43 @@
 git clone https://github.com/ufrpe-bcc-paradigmas-de-programacao/201812001-translator-mip.git
 ```
 
-2. Install dependencies using npm
-```
-npm run installDeps
-```
+2. Enter the cloned folder
 
-3. Run command line program using:
-```
-npm start
-```
+3. Install the [Dependencies](#dependencies)
 
-4. On command line enter `hello` and if it returns the following response it's all done:
-```haskell
-*Main> hello
-"Hello World!"
-```
+## How to use
+
+1. Run the program
+    * With npm (inside root folder): `npm start`
+    * With GHCi (inside src folder): `ghci "./translator.hs"`
+
+2. Type `convert "file-path"`
+
+3. It's all done! You can check the output `lrg.mif` in `output` folder
+
+## Dependencies:
+
+- [Haskell Compiler (GHC)](https://www.haskell.org/downloads)
+- Install [Cabal](https://www.haskell.org/cabal/download.html)
+
+ Now Choose your path
+
+ - [Install Using NPM](#npminstall)
+ - [Install Using Cabal](#cabalinstall)
+
+<h4 id="npminstall"> Using NPM </h4>
+
+On your terminal run:
+1. `npm run installDeps`
+
+<h4 id="cabalinstall"> Using Cabal </h4>
+
+On your terminal run:
+1. `cabal update`
+1. `cabal install hex text split`
+
+## Credits
+
+- [DwarfThief](https://github.com/DwarfThief)
+- [brunohgv](https://github.com/brunohgv)
+- [otavioalves2](https://github.com/otavioalves2)

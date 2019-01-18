@@ -7,16 +7,35 @@ import qualified Data.Text as T
 
 hello = "Hello World!"
 
-normalizeStrings file  = do
-  content <- readFile file
-  return (verificaTipo (splitOn "" (head (splitOn "\n" content))))
+convert inputFile = do
+  content <- readFile inputFile
+  printArqFinal content
   
 start comando = verificaTipo (splitOn " " comando)
 
-verificaTipo lista
-  | head lista=="NOP" || head lista=="ADD" || head lista=="AND" || head lista=="OR" || head lista=="SUB" || head lista =="NEG" || head lista =="CPY" || head lista =="INPUT" || head lista=="OUTPUT"  = tipoR lista
-  | head lista=="LRG" || head lista=="BLT" || head lista=="BGT" || head lista=="BEQ" || head lista=="BNE" = tipoI lista
-  | head lista=="JMP" = tipoJ lista
+retornaLista stringEntrada = loopDaLista (splitOn "\n" stringEntrada)  ""
+
+loopDaLista list final 
+  | (length list) <= 0 = final
+  | (length list) > 0 = loopDaLista (tail list) ((("  " ++ show ((length list) - 1)) ++ "  :  " ++start (head list)) ++ ";\n" ++ final)
+
+verificaTipo lista = case (head lista) of
+  "NOP" -> tipoR lista  
+  "ADD" -> tipoR lista  
+  "AND" -> tipoR lista  
+  "OR" -> tipoR lista 
+  "SUB" -> tipoR lista  
+  "NEG" -> tipoR lista  
+  "CPY" -> tipoR lista
+  "NOT" -> tipoR lista  
+  "INPUT" -> tipoR lista  
+  "OUTPUT" -> tipoR lista
+  "LRG" -> tipoI lista  
+  "BLT" -> tipoI lista  
+  "BGT" -> tipoI lista  
+  "BEQ" -> tipoI lista  
+  "BNE" -> tipoI lista 
+  "JMP" -> tipoJ lista 
 
 tipoR lista
   | head lista=="NOP"= "0"
@@ -63,18 +82,10 @@ binToHex bin pos result
   | last bin == "0" = binToHex (init bin) (pos + 1) result
   | last bin == "1" = binToHex (init bin) (pos +1) (result + (1*(2^pos)))
 
+textoCompleto lista = ("WIDTH=16;\nDEPTH=256;\n\nADDRESS_RADIX=UNS;\nDATA_RADIX=HEX;\n\nCONTENT BEGIN\n" ++ lista ++ "  [" ++ (show ((getLengthSplited lista) - 1)) ++ "..255]  :   0000;\nEND;")
 
--- TODO
+finalFunc fileContent = textoCompleto (retornaLista fileContent)
 
--- printArqFinal list = writeFile "Output.txt" (finalFunc list)
+getLengthSplited text = length (splitOn "\n" text)
 
--- finalFunc list = forM_ ("-- Copyright (C) 1991-2013 Altera Corporation\n-- Your use of Altera Corporation's design tools, logic functions\n-- and other software and tools, and its AMPP partner logic\n-- functions, and any output files from any of the foregoing\n
--- -- (including device programming or simulation files), and any\n-- associated documentation or information are expressly subject\n-- to the terms and conditions of the Altera Program License\n
--- -- Subscription Agreement, Altera MegaCore Function License\n-- Agreement, or other applicable license agreement, including,\n-- without limitation, that your use is for the sole purpose of\n
--- -- programming logic devices manufactured by Altera and sold by\n-- Altera or its authorized distributors.  Please refer to the\n
--- -- applicable agreement for further details.\n\n-- Quartus II generated Memory Initialization File (.mif)\n\nWIDTH=16;\nDEPTH=256;\n
--- \nADDRESS_RADIX=UNS;\nDATA_RADIX=HEX;\n\nCONTENT BEGIN\n" ++ resultadoFinal list (length list) (" ["++ (show loop) ++"..255]  :   0000;\nEND;") putStrLn
-
--- resultadoFinal listI loop listF
---   | loop < 0 = listF
---   | loop >= 0 = resultadoFinal (init listI) (loop - 1) ("	"++(show loop)++"    :   "++(last listI)++";\n" ++ listF)
+printArqFinal inputText = writeFile "./output/lrg.mif" (finalFunc inputText)
