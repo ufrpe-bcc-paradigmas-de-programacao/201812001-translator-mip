@@ -82,7 +82,7 @@ binToHex bin pos result
   | last bin == "0" = binToHex (init bin) (pos + 1) result
   | last bin == "1" = binToHex (init bin) (pos +1) (result + (1*(2^pos)))
 
-textoCompleto lista = ("WIDTH=16;\nDEPTH=256;\n\nADDRESS_RADIX=UNS;\nDATA_RADIX=HEX;\n\nCONTENT BEGIN\n" ++ lista ++ "  [" ++ (show ((getLengthSplited lista) - 1)) ++ "..255]  :   0000;\nEND;")
+textoCompleto lista = ("-- Copyright (C) 1991-2013 Altera Corporation\n-- Your use of Altera Corporation's design tools, logic functions \n-- and other software and tools, and its AMPP partner logic \n-- functions, and any output files from any of the foregoing \n-- (including device programming or simulation files), and any \n-- associated documentation or information are expressly subject \n-- to the terms and conditions of the Altera Program License \n-- Subscription Agreement, Altera MegaCore Function License \n-- Agreement, or other applicable license agreement, including, \n-- without limitation, that your use is for the sole purpose of \n-- programming logic devices manufactured by Altera and sold by \n-- Altera or its authorized distributors.  Please refer to the \n-- applicable agreement for further details.\n-- Quartus II generated Memory Initialization File (.mif)\n\nWIDTH=16;\nDEPTH=256;\n\nADDRESS_RADIX=UNS;\nDATA_RADIX=HEX;\n\nCONTENT BEGIN\n" ++ lista ++ "  [" ++ (show ((getLengthSplited lista) - 1)) ++ "..255]  :   0000;\nEND;")
 
 finalFunc fileContent = textoCompleto (retornaLista fileContent)
 
